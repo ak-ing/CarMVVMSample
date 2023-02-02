@@ -1,0 +1,4 @@
+<resources>
+
+    <style name="Theme.CarSampleMVVM" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+</resources>
