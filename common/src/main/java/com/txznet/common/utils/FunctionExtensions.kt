@@ -66,7 +66,7 @@ fun <T> Any.getInstance(position: Int): T? {
 /**
  * TAG
  */
-val Any.CLASS_TAG get() = javaClass.simpleName + ":" + Integer.toHexString(hashCode())
+val Any.CLASS_TAG get() = this::class.java.simpleName + ":" + Integer.toHexString(hashCode())
 
 /**
  * dp单位
