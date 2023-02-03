@@ -21,8 +21,7 @@ Human Machine Interface，显示UI信息，进行人机交互。
 
 
 
-Android Automotive 是 OS，其归属于 AOSP 项目，代码也在 Android OS 之中。在编译的时候选择 automotive 的编译 target 即可生成车载机使用的 AAOS。
-它支持加载 Android Auto 的 App，即将 Android Phone 和 AAOS 车机仍旧能像 Android Auto 一样使用。同时支持 Android OS 的 App，即不适配车载机亦能运行在 AAOS 上。这可能也是主流互联网 App 无意适配 AAOS 的部分原因，同时导致适配车机 UI 的任务落到了车企身上。
+Android Automotive 是 OS，其归属于 AOSP 项目，代码也在 Android OS 之中；Android Automotive 支持专为 Android 打造的应用，以及专为 Android Auto 打造的应用。
 
 官方提供了针对导航等几个场景提供了开发 Sample：
 - https://github.com/android/car-samples
