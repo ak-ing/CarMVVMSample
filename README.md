@@ -4,6 +4,7 @@
 
 
 **`2023-02-09`：分离`service`和`SDK`的封装示例到 [CarServiceSample](https://github.com/ak-ing/CarServiceSample)**
+****
 **此demo为MVVM示例架构和`SDK`使用方实例，请自行组合**
 
 
