@@ -4,9 +4,11 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PointF
 import android.graphics.Rect
+import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.WindowCompat
@@ -47,7 +49,7 @@ fun calculateCIE76Distance(color1: Int, color2: Int): Double {
     )
 }
 
-fun <T> Any.getInstance(position: Int): T? {
+fun <T> Any.typeInstance(position: Int): T? {
     val type = this::class.java.genericSuperclass
     if (type is ParameterizedType) {
         try {
@@ -103,9 +105,12 @@ fun <T> Flow<T>.collectWithLifecycle(
  * 显示状态栏、导航栏、标题栏
  */
 fun Window.showSystemUI() {
-    WindowCompat.getInsetsController(this, decorView).also {
-        it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        it.show(WindowInsetsCompat.Type.systemBars())
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        WindowCompat.getInsetsController(this, decorView).also {
+            it.show(WindowInsetsCompat.Type.systemBars())
+        }
+    } else {
+        clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }
 
@@ -113,9 +118,13 @@ fun Window.showSystemUI() {
  * 隐藏状态栏、导航栏、标题栏
  */
 fun Window.hideSystemUI() {
-    WindowCompat.getInsetsController(this, decorView).also {
-        it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        it.hide(WindowInsetsCompat.Type.systemBars())
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        WindowCompat.getInsetsController(this, decorView).also {
+            it.hide(WindowInsetsCompat.Type.systemBars())
+            it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    } else {
+        addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }
 

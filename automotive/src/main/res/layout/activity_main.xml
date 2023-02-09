@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.txznet.carsamplemvvm.ui.HvacViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,8 +18,9 @@
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
-            android:text="akk"
             android:layout_height="wrap_content"
+            android:text="@{viewModel.tempLive}"
+            android:textSize="30px"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

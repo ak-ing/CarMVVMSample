@@ -41,7 +41,7 @@ fun logE(tag: String? = null, content: String) {
 
 
 object LogUtil {
-    const val TAG_COMMON = "[common]-LogUtil："
+    const val TAG_COMMON = "[common_Log]"
     private var logEnable = true
 
     fun enableLog(enable: Boolean) {

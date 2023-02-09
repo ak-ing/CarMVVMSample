@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.txznet.common.ui.BaseVMActivity
 import com.txznet.common.ui.BaseVMFragment
+import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -82,12 +83,19 @@ public inline fun <reified VM : ViewModel> Fragment.activityViewModel(
 class ParamViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
         val param = extras[DEFAULT_EXTRAS_KEY]
+        var newInstance: T
         param?.let {
             val constructor = modelClass.getConstructor(param::class.java)
             constructor.isAccessible = true
-            return constructor.newInstance(it)
+            try {
+                newInstance = constructor.newInstance(it)
+                return newInstance
+            } catch (e: InvocationTargetException) {
+                e.targetException.printStackTrace()
+            }
         }
-        return modelClass.newInstance()
+        newInstance = modelClass.newInstance()
+        return newInstance
     }
 }
 

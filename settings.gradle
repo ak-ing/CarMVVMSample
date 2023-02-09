@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 rootProject.name = "CarSampleMVVM"
 include ':automotive'
 include ':common'
-include ':sdk'
