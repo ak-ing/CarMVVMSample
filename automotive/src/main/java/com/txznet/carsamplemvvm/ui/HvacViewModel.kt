@@ -1,12 +1,14 @@
 package com.txznet.carsamplemvvm.ui
 
-import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.txznet.carsamplemvvm.model.HvacRepository
 import com.txznet.carsamplemvvm.model.IHvacCallback
+import com.txznet.common.AppGlobal
 import com.txznet.common.utils.logI
 import com.txznet.common.vm.BaseViewModel
+import kotlin.random.Random
 
 /**
  * Created by Rick on 2023-01-30  20:53.
@@ -17,6 +19,8 @@ class HvacViewModel(private val test: String) : BaseViewModel<HvacRepository>(),
     private val mTempLd = MutableLiveData<String>()
 
     init {
+        Toast.makeText(AppGlobal.context, test, Toast.LENGTH_SHORT).show()
+        addCloseable(repository)    // 将在 onCleared() 之前自动取消
         repository.setHvacListener(this)
         requestTemperature()
     }
@@ -37,8 +41,8 @@ class HvacViewModel(private val test: String) : BaseViewModel<HvacRepository>(),
     /**
      * 将温度数据设定到Service中
      */
-    fun setTemperature(view: View?) {
-        repository.setTemperature(getTempLive().value)
+    fun setTemperature() {
+        repository.setTemperature(Random.nextInt().toString())
     }
 
     fun getTempLive(): LiveData<String> {

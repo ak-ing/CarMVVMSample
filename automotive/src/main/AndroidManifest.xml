@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.txznet.carsamplemvvm">
 
-    <queries>
-        <package android:name="com.txznet.carservicesampel" />
-    </queries>
-
     <uses-feature
         android:name="android.hardware.type.automotive"
         android:required="true" />

@@ -3,8 +3,8 @@ package com.txznet.carsamplemvvm.model
 import com.txznet.common.model.BaseRepository
 import com.txznet.common.utils.logI
 import com.txznet.common.utils.logV
-import com.txznet.sdk.hvac.DefaultHvacCallback
-import com.txznet.sdk.hvac.HvacManager
+import com.txznet.sdk.sample.DefaultHvacCallback
+import com.txznet.sdk.sample.HvacManager
 
 /**
  * Created by Rick on 2023-01-30  20:54.
@@ -26,10 +26,6 @@ class HvacRepository : BaseRepository(), DefaultHvacCallback {
     init {
         logI(TAG, "[registerCallback]")
         HvacManager.instant.registerCallback(this)
-    }
-
-    fun release() {
-        HvacManager.instant.unregisterCallback(this)
     }
 
     fun requestTemperature() {
@@ -56,7 +52,7 @@ class HvacRepository : BaseRepository(), DefaultHvacCallback {
     override fun close() {
         super.close()
         mHvacVMCallback?.let { removeHvacListener(it) }
-        release()
+        HvacManager.instant.unregisterCallback(this)
     }
 
 }
