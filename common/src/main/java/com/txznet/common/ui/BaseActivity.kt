@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.txznet.common.utils.CLASS_TAG
-import com.txznet.common.utils.LogUtil.TAG_COMMON
 import com.txznet.common.utils.logV
 
 /**
@@ -13,7 +12,7 @@ import com.txznet.common.utils.logV
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    protected val TAG = TAG_COMMON + CLASS_TAG
+    protected val TAG = CLASS_TAG
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

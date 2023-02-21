@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.txznet.common.utils.CLASS_TAG
-import com.txznet.common.utils.LogUtil
 import com.txznet.common.utils.logV
 
 /**
@@ -17,7 +16,7 @@ import com.txznet.common.utils.logV
  */
 abstract class BaseFragment(@LayoutRes layoutRes: Int) : Fragment(layoutRes) {
 
-    protected val TAG = LogUtil.TAG_COMMON + CLASS_TAG
+    protected val TAG = CLASS_TAG
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

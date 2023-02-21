@@ -45,10 +45,4 @@ class HvacViewModel(private val test: String) : BaseViewModel<HvacRepository>(),
         return mTempLd
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        repository.removeHvacListener(this)
-        repository.release()
-    }
-
 }

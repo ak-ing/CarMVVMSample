@@ -1,8 +1,6 @@
 package com.txznet.carsamplemvvm.model
 
 import com.txznet.common.model.BaseRepository
-import com.txznet.common.utils.CLASS_TAG
-import com.txznet.common.utils.LogUtil.TAG_COMMON
 import com.txznet.common.utils.logI
 import com.txznet.common.utils.logV
 import com.txznet.sdk.hvac.DefaultHvacCallback
@@ -13,9 +11,7 @@ import com.txznet.sdk.hvac.HvacManager
  * Description:
  */
 class HvacRepository : BaseRepository(), DefaultHvacCallback {
-    private val TAG: String = TAG_COMMON + CLASS_TAG
 
-    private val mHvacManager = HvacManager.instant
     private var mHvacVMCallback: IHvacCallback? = null
 
     override fun onTemperatureChanged(temperature: Double) {
@@ -29,22 +25,22 @@ class HvacRepository : BaseRepository(), DefaultHvacCallback {
 
     init {
         logI(TAG, "[registerCallback]")
-        mHvacManager.registerCallback(this)
+        HvacManager.instant.registerCallback(this)
     }
 
     fun release() {
-        mHvacManager.unregisterCallback(this)
+        HvacManager.instant.unregisterCallback(this)
     }
 
     fun requestTemperature() {
         logI(TAG, "[requestTemperature]")
-        mHvacManager.requestTemperature()
+        HvacManager.instant.requestTemperature()
     }
 
     fun setTemperature(temperature: String?) {
         logI(TAG, "[setTemperature] $temperature")
         if (temperature.isNullOrEmpty()) return
-        mHvacManager.setTemperature(temperature.toInt())
+        HvacManager.instant.setTemperature(temperature.toInt())
     }
 
     fun setHvacListener(callback: IHvacCallback) {
@@ -55,6 +51,12 @@ class HvacRepository : BaseRepository(), DefaultHvacCallback {
     fun removeHvacListener(callback: IHvacCallback) {
         logI(TAG, "[removeHvacListener] $callback")
         mHvacVMCallback = null
+    }
+
+    override fun close() {
+        super.close()
+        mHvacVMCallback?.let { removeHvacListener(it) }
+        release()
     }
 
 }
