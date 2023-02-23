@@ -14,13 +14,13 @@ import kotlin.random.Random
  * Created by Rick on 2023-01-30  20:53.
  * Description:
  */
-class HvacViewModel(private val test: String) : BaseViewModel<HvacRepository>(), IHvacCallback {
+class HvacViewModel(private val test: String) : BaseViewModel<HvacRepository>(HvacRepository()),
+    IHvacCallback {
 
     private val mTempLd = MutableLiveData<String>()
 
     init {
         Toast.makeText(AppGlobal.context, test, Toast.LENGTH_SHORT).show()
-        addCloseable(repository)    // 将在 onCleared() 之前自动取消
         repository.setHvacListener(this)
         requestTemperature()
     }
