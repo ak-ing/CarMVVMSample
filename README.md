@@ -1,6 +1,6 @@
 # CarMVVMSample
 
-## Android Automotive架构示例应用/封装
+## 车载应用MVVM架构示例应用/封装
 
 
 **`2023-02-09`：分离`service`和`SDK`的封装示例到 [CarServiceSample](https://github.com/ak-ing/CarServiceSample)**
