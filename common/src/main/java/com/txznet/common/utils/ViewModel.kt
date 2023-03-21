@@ -2,7 +2,10 @@ package com.txznet.common.utils
 
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.txznet.common.ui.BaseVMActivity
 import com.txznet.common.ui.BaseVMFragment
@@ -24,10 +27,10 @@ public fun <VM : ViewModel> BaseVMActivity<*, *>.viewModel(
 ): Lazy<VM> {
     val modelClass: Class<VM> = this.parseTypeClass()
 
-    val factoryPromise = if (defaultViewModelCreationExtras[DEFAULT_EXTRAS_KEY] != null) {
-        { ParamViewModelFactory() }
+    val factoryPromise = if (factoryProducer != null) {
+        factoryProducer
     } else {
-        factoryProducer ?: { defaultViewModelProviderFactory }
+        { ParamViewModelFactory() }
     }
     return ViewModelLazy(
         modelClass.kotlin,
@@ -43,13 +46,10 @@ public fun <VM : ViewModel> BaseVMFragment<*, *>.viewModel(
     factoryProducer: (() -> ViewModelProvider.Factory)? = null
 ): Lazy<VM> {
     val modelClass: Class<VM> = parseTypeClass()
-    val factoryPromise = if (defaultViewModelCreationExtras[DEFAULT_EXTRAS_KEY] != null) {
-        { ParamViewModelFactory() }
+    val factoryPromise = if (factoryProducer != null) {
+        factoryProducer
     } else {
-        factoryProducer ?: {
-            (ownerProducer() as? HasDefaultViewModelProviderFactory)?.defaultViewModelProviderFactory
-                ?: defaultViewModelProviderFactory
-        }
+        { ParamViewModelFactory() }
     }
     return ViewModelLazy(
         modelClass.kotlin,
@@ -64,10 +64,10 @@ public inline fun <reified VM : ViewModel> Fragment.activityViewModel(
     noinline factoryProducer: (() -> ViewModelProvider.Factory)? = null
 ): Lazy<VM> {
     val modelClass: Class<VM> = VM::class.java
-    val factoryPromise = if (defaultViewModelCreationExtras[DEFAULT_EXTRAS_KEY] != null) {
-        { ParamViewModelFactory() }
+    val factoryPromise = if (factoryProducer != null) {
+        factoryProducer
     } else {
-        factoryProducer ?: { requireActivity().defaultViewModelProviderFactory }
+        { ParamViewModelFactory() }
     }
     return ViewModelLazy(
         modelClass.kotlin,

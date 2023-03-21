@@ -38,7 +38,7 @@ abstract class BaseVMActivity<V : ViewDataBinding, VM : BaseViewModel<*>>(@Layou
     /**
      * 注入ViewModel参数
      */
-    protected abstract fun getVMExtras(): Any?
+    protected open fun getVMExtras(): Any? = null
 
     protected abstract fun V.initView()
 

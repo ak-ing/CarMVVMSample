@@ -1,5 +1,6 @@
 package com.txznet.common.utils
 
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PointF
@@ -9,6 +10,7 @@ import android.util.TypedValue
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.WindowCompat
@@ -48,6 +50,16 @@ fun calculateCIE76Distance(color1: Int, color2: Int): Double {
         (r1 - r2).toDouble().pow(2.0) + (g1 - g2).toDouble().pow(2.0) + (b1 - b2).toDouble().pow(2.0)
     )
 }
+
+/**
+ * 获取屏幕高度
+ */
+fun getHeightPixels(): Int = AppGlobal.context.resources.displayMetrics.heightPixels
+
+/**
+ *  获取屏幕宽度
+ */
+fun getWidthPixels(): Int = AppGlobal.context.resources.displayMetrics.widthPixels
 
 fun <T> Any.typeInstance(position: Int): T? {
     val type = this::class.java.genericSuperclass
@@ -128,6 +140,11 @@ fun Window.hideSystemUI() {
     }
 }
 
+/**
+ * 获取颜色
+ */
+fun Context.getCompatColor(@ColorRes color: Int) = ContextCompat.getColor(this, color)
+
 
 /**
  * 点位是否在View里面
@@ -151,5 +168,14 @@ fun View.isInside(pointF: PointF): Boolean {
 fun View.centerColor(): Int {
     val bitmap = background.toBitmap()
     return bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+}
+
+/**
+ * 计算窗口中的底部
+ */
+fun View.calculateBottomInWindow(): Int {
+    val location = IntArray(2)
+    getLocationInWindow(location)
+    return location[1] + height
 }
 

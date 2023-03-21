@@ -15,6 +15,7 @@ class HvacActivity : BaseVMActivity<ActivityMainBinding, HvacViewModel>(R.layout
     }
 
     override fun ActivityMainBinding.initObservable() {
+        //测试打印
         vm.getTempLive().observe(this@HvacActivity) {
             logI(TAG, "[initObservable]：$it")
         }
